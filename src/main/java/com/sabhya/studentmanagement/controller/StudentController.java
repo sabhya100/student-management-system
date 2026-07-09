@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.RequestParam;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/students")
@@ -16,16 +19,34 @@ public class StudentController {
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
     }
-
+    @GetMapping("/page")
+    public Page<Student> getStudentsPage(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size,
+            @RequestParam(defaultValue = "id") String sortBy
+    ) {
+        return studentService.getStudentsPage(page, size, sortBy);
+    }
     @GetMapping
     public List<Student> getAllStudents() {
         return studentService.getAllStudents();
     }
+
     @GetMapping("/search")
     public List<Student> searchStudentsByName(
             @RequestParam String name
     ) {
         return studentService.searchStudentsByName(name);
+    }
+    @GetMapping("/course")
+    public List<Student> getStudentsByCourse(
+            @RequestParam String course
+    ) {
+        return studentService.getStudentsByCourse(course);
+    }
+    @GetMapping("/count")
+    public Map<String, Long> getStudentCount() {
+        return Map.of("totalStudents", studentService.getStudentCount());
     }
     @GetMapping("/{id}")
     public Student getStudentById(@PathVariable Long id) {

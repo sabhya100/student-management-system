@@ -6,6 +6,10 @@ import org.springframework.stereotype.Service;
 import com.sabhya.studentmanagement.exception.StudentNotFoundException;
 import java.util.List;
 import com.sabhya.studentmanagement.exception.DuplicateEmailException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 @Service
 public class StudentService {
@@ -18,6 +22,21 @@ public class StudentService {
 
     public List<Student> getAllStudents() {
         return studentRepository.findAll();
+    }
+    public List<Student> getStudentsByCourse(String course) {
+        return studentRepository.findByCourseContainingIgnoreCase(course);
+    }
+    public long getStudentCount() {
+        return studentRepository.count();
+    }
+    public Page<Student> getStudentsPage(int page, int size, String sortBy) {
+        Pageable pageable = PageRequest.of(
+                page,
+                size,
+                Sort.by(sortBy).ascending()
+        );
+
+        return studentRepository.findAll(pageable);
     }
     public List<Student> searchStudentsByName(String name) {
         return studentRepository.findByNameContainingIgnoreCase(name);
