@@ -158,15 +158,17 @@ from your IDE.
 
 ### Swagger UI
 
-> Add your Swagger screenshot here.
+<img width="1477" height="772" alt="image" src="https://github.com/user-attachments/assets/ac87b3cc-c227-4e76-8484-905d9a97373b" />
+
 
 ```
-images/swagger-ui.png
+images/Swagger-ui.png
 ```
 
 ### Home Page
 
-> Add your frontend screenshot here.
+<img width="1497" height="776" alt="image" src="https://github.com/user-attachments/assets/4f4445e3-fe4d-4387-b599-f50287595442" />
+
 
 ```
 images/home-page.png
